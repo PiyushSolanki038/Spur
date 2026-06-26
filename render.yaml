@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: spur-chat
+    env: node
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build && cd ../backend && npm install && npm run build
+    startCommand: cd backend && npm run start
+    envVars:
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_MODEL
+        value: openai/gpt-oss-20b:free
+      - key: PORT
+        value: 3001
+      - key: DB_PATH
+        value: ./data/spur.db
