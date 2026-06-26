@@ -3,9 +3,12 @@
 A mini AI customer support agent for a live chat widget, built for the Spur founding engineer
 take-home. Full assignment spec preserved in [ASSIGNMENT.md](ASSIGNMENT.md).
 
+**Live demo**: https://spur-chat-hmgk.onrender.com
+*(hosted on Render's free tier — may take 30-50s to wake up after a period of inactivity)*
+
 - **Backend**: Node.js + TypeScript + Express + SQLite (better-sqlite3)
 - **Frontend**: Svelte + Vite (TypeScript)
-- **LLM**: OpenRouter (`meta-llama/llama-3.1-8b-instruct:free` by default — free model, no paid key needed)
+- **LLM**: OpenRouter (`openai/gpt-oss-20b:free` by default — free model, no paid key needed)
 
 ## 1. Running locally
 
@@ -55,7 +58,7 @@ Set in `backend/.env` (see `backend/.env.example`):
 | Variable | Required | Description |
 |---|---|---|
 | `OPENROUTER_API_KEY` | Yes (for real replies) | OpenRouter API key. Without it, the backend runs but returns a friendly "not configured" message. |
-| `OPENROUTER_MODEL` | No | Defaults to `meta-llama/llama-3.1-8b-instruct:free`. Swap to any OpenRouter model id (free or paid). |
+| `OPENROUTER_MODEL` | No | Defaults to `openai/gpt-oss-20b:free`. Swap to any OpenRouter model id (free or paid). |
 | `PORT` | No | Backend port, defaults to `3001`. |
 | `DB_PATH` | No | SQLite file path, defaults to `./data/spur.db`. |
 
@@ -99,7 +102,7 @@ frontend/src/
 ## 5. LLM notes
 
 - **Provider**: OpenRouter, using the `openai` SDK with `baseURL` pointed at OpenRouter's
-  OpenAI-compatible API. Default model is `meta-llama/llama-3.1-8b-instruct:free` — a free model,
+  OpenAI-compatible API. Default model is `openai/gpt-oss-20b:free` — a free model,
   so no billing setup is required to run this end-to-end. Swappable via `OPENROUTER_MODEL`.
 - **Prompting**: a single system prompt combines the support-agent persona with a hardcoded FAQ
   knowledge block for a fictional store ("Lumen Goods") covering shipping, returns, and support
@@ -128,6 +131,8 @@ Steps:
 3. Set the `OPENROUTER_API_KEY` env var in the Render dashboard (marked `sync: false` in
    `render.yaml` so it's never committed).
 4. Deploy.
+
+This is exactly how the live demo above is deployed.
 
 ## 7. Trade-offs / if I had more time
 
